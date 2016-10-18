@@ -201,6 +201,13 @@ class Homestead
       end
     end
 
+    # Install YARN If Necessary
+    if settings.has_key?("yarn") && settings["yarn"]
+      config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/install-yarn.sh"
+      end
+    end
+
 
     # Configure All Of The Configured Databases
     if settings.has_key?("databases")
