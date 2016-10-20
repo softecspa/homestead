@@ -208,20 +208,35 @@ class Homestead
       end
     end
 
+    # Install Mongodb If Necessary
+    if settings.has_key?("mongodb") && settings["mongodb"]
+      config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/install-mongodb.sh"
+      end
+    end
 
     # Configure All Of The Configured Databases
-    if settings.has_key?("databases")
+    if settings.include? 'databases'
+    #if settings.has_key?("databases")
         settings["databases"].each do |db|
-          config.vm.provision "shell" do |s|
-            s.name = "Creating MySQL Database"
-            s.path = scriptDir + "/create-mysql.sh"
-            s.args = [db]
-          end
+          type = db["type"] ||= "mysql"
 
-          config.vm.provision "shell" do |s|
-            s.name = "Creating Postgres Database"
-            s.path = scriptDir + "/create-postgres.sh"
-            s.args = [db]
+          if (db["type"] == "mysql")
+
+            config.vm.provision "shell" do |s|
+              s.name = "Creating MySQL Database"
+              s.path = scriptDir + "/create-mysql.sh"
+              s.args = [db["name"]]
+            end
+
+          else 
+
+            config.vm.provision "shell" do |s|
+              s.name = "Creating Postgres Database"
+              s.path = scriptDir + "/create-postgres.sh"
+              s.args = [db["name"]]
+            end
+
           end
         end
     end
@@ -267,5 +282,30 @@ class Homestead
         ]
       end
     end
+
+    # Install YARN If Necessary
+    #if settings.has_key?("dumpdbonhalt") && settings["halt"]
+      # run some script before the guest is halted
+      #config.trigger.before :halt do
+        #info "Dumping the database before destroying the VM..."
+        #run_remote  "bash /home/vagrant/homestead/script/export-databases.sh"
+      #end
+    #end
+    config.trigger.before :halt do
+      info "Dumping the database before destroying the VM..."
+      # Dump All Of The Configured Databases
+      if settings.include? 'databases'
+          settings["databases"].each do |db|
+            if (db["type"] == "mysql")
+              info "Dumping the database " + db["type"] + " " + db["name"] + " in " + db["backup"]
+              run scriptDir + "/dump-mysql.sh " +  settings["ip"] + " " + db["name"] + " " + db['backup']
+            else 
+              info "Dumping the database " + db["type"] + " " + db["name"] + " in " + db["backup"]
+              run scriptDir + "/dump-postgres.sh " +  settings["ip"] + " " + db["name"] + " " + db['backup']
+            end
+          end
+      end
+    end
+            
   end
 end
