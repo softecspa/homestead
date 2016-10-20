@@ -1,13 +1,13 @@
 
 # Check If Maria Has Been Installed
 
-if [ -f /home/vagrant/.maria ]
+if [ -f /home/vagrant/.vagrant-maria ]
 then
     echo "MariaDB already installed."
     exit 0
 fi
 
-touch /home/vagrant/.maria
+touch /home/vagrant/.vagrant-maria
 
 # Remove MySQL
 

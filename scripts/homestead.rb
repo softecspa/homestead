@@ -200,6 +200,13 @@ class Homestead
         s.path = scriptDir + "/install-maria.sh"
       end
     end
+    
+    # Install ImageMagick If Necessary
+    if settings.has_key?("imagemagick") && settings["imagemagick"]
+      config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/install-imagemagick.sh"
+      end
+    end
 
     # Install YARN If Necessary
     if settings.has_key?("yarn") && settings["yarn"]
@@ -208,7 +215,7 @@ class Homestead
       end
     end
 
-    # Install YARN If Necessary
+    # Install Sails If Necessary
     if settings.has_key?("sails") && settings["sails"]
       config.vm.provision "shell" do |s|
         s.path = scriptDir + "/install-sails.sh"
