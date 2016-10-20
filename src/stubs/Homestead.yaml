@@ -1,8 +1,13 @@
 ---
-ip: "192.168.10.10"
-memory: 2048
-cpus: 1
+ip: "192.168.10.13"
+memory: 4096
+cpus: 2
 provider: virtualbox
+name: homestead-7-softecspa 
+mariadb: true 
+#mongodb: true 
+yarn: true 
+#dumpdbonhalt: true
 
 authorize: ~/.ssh/id_rsa.pub
 
@@ -18,7 +23,9 @@ sites:
       to: /home/vagrant/Code/Laravel/public
 
 databases:
-    - homestead
+    - name: homestead
+      type: mysql
+      backup: ~/Code/
 
 # blackfire:
 #     - id: foo

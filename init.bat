@@ -1,6 +1,6 @@
 @echo off
 
-set homesteadRoot=%HOMEDRIVE%%HOMEPATH%\.homestead
+set homesteadRoot=%HOMEDRIVE%%HOMEPATH%\.homestead_softecspa
 
 mkdir "%homesteadRoot%"
 
@@ -9,4 +9,4 @@ copy /-y src\stubs\after.sh "%homesteadRoot%\after.sh"
 copy /-y src\stubs\aliases "%homesteadRoot%\aliases"
 
 set homesteadRoot=
-echo Homestead initialized!
+echo Homestead Softecspa initialized!
