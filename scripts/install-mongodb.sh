@@ -3,7 +3,7 @@
 
 if [ -f /home/vagrant/.vagrant-mongodb ]
 then
-    echo "MariaDB already installed."
+    echo "MongoDB already installed."
     exit 0
 fi
 

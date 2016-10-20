@@ -208,6 +208,13 @@ class Homestead
       end
     end
 
+    # Install YARN If Necessary
+    if settings.has_key?("sails") && settings["sails"]
+      config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/install-sails.sh"
+      end
+    end
+
     # Install Mongodb If Necessary
     if settings.has_key?("mongodb") && settings["mongodb"]
       config.vm.provision "shell" do |s|
