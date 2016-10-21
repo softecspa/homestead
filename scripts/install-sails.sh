@@ -9,4 +9,4 @@ fi
 
 touch /home/vagrant/.vagrant-sails
 
-sudo npm install -g sails
+sudo npm install -g sails@~0.11.0

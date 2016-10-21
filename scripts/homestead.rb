@@ -310,12 +310,14 @@ class Homestead
       # Dump All Of The Configured Databases
       if settings.include? 'databases'
           settings["databases"].each do |db|
-            if (db["type"] == "mysql")
-              info "Dumping the database " + db["type"] + " " + db["name"] + " in " + db["backup"]
-              run scriptDir + "/dump-mysql.sh " +  settings["ip"] + " " + db["name"] + " " + db['backup']
-            else 
-              info "Dumping the database " + db["type"] + " " + db["name"] + " in " + db["backup"]
-              run scriptDir + "/dump-postgres.sh " +  settings["ip"] + " " + db["name"] + " " + db['backup']
+            if db["backup"]
+              if (db["type"] == "mysql")
+                info "Dumping the database " + db["type"] + " " + db["name"] + " in " + db["backup"]
+                run scriptDir + "/dump-mysql.sh " +  settings["ip"] + " " + db["name"] + " " + db['backup']
+              else 
+                info "Dumping the database " + db["type"] + " " + db["name"] + " in " + db["backup"]
+                run scriptDir + "/dump-postgres.sh " +  settings["ip"] + " " + db["name"] + " " + db['backup']
+              end
             end
           end
       end
