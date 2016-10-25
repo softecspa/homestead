@@ -6,7 +6,9 @@ provider: virtualbox
 name: homestead-7-softecspa 
 mariadb: true 
 #mongodb: true 
+#imagemagick: true 
 yarn: true 
+npm: true 
 #dumpdbonhalt: true
 
 authorize: ~/.ssh/id_rsa.pub

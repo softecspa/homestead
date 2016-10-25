@@ -194,6 +194,11 @@ class Homestead
       s.inline = "sudo service nginx restart; sudo service php7.0-fpm restart"
     end
 
+    # Installing some other ubuntu packages
+    config.vm.provision "shell" do |s|
+      s.path = scriptDir + "/install-ubuntu.sh"
+    end
+
     # Install MariaDB If Necessary
     if settings.has_key?("mariadb") && settings["mariadb"]
       config.vm.provision "shell" do |s|
@@ -215,10 +220,10 @@ class Homestead
       end
     end
 
-    # Install Sails If Necessary
-    if settings.has_key?("sails") && settings["sails"]
+    # Install NPM If Necessary
+    if settings.has_key?("npm") && settings["npm"]
       config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/install-sails.sh"
+        s.path = scriptDir + "/install-npm.sh"
       end
     end
 
@@ -297,14 +302,6 @@ class Homestead
       end
     end
 
-    # Install YARN If Necessary
-    #if settings.has_key?("dumpdbonhalt") && settings["halt"]
-      # run some script before the guest is halted
-      #config.trigger.before :halt do
-        #info "Dumping the database before destroying the VM..."
-        #run_remote  "bash /home/vagrant/homestead/script/export-databases.sh"
-      #end
-    #end
     config.trigger.before :halt do
       info "Dumping the database before destroying the VM..."
       # Dump All Of The Configured Databases
