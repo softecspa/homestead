@@ -147,6 +147,11 @@ class Homestead
       end
     end
 
+    # Installing some other ubuntu packages
+    config.vm.provision "shell" do |s|
+      s.path = scriptDir + "/install-ubuntu.sh"
+    end
+
     # Install All The Configured Nginx Sites
     config.vm.provision "shell" do |s|
         s.path = scriptDir + "/clear-nginx.sh"
@@ -191,12 +196,11 @@ class Homestead
 
     config.vm.provision "shell" do |s|
       s.name = "Restarting Nginx"
-      s.inline = "sudo service nginx restart; sudo service php7.0-fpm restart"
-    end
-
-    # Installing some other ubuntu packages
-    config.vm.provision "shell" do |s|
-      s.path = scriptDir + "/install-ubuntu.sh"
+      if settings.has_key?("php7") && settings["php7"]
+        s.inline = "sudo service nginx restart; sudo service php5-fpm restart"
+      else 
+        s.inline = "sudo service nginx restart; sudo service php7.0-fpm restart"
+      end
     end
 
     # Install MariaDB If Necessary
@@ -269,7 +273,11 @@ class Homestead
     if settings.has_key?("variables")
       settings["variables"].each do |var|
         config.vm.provision "shell" do |s|
-          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php/7.0/fpm/php-fpm.conf"
+          if settings.has_key?("php7") && settings["php7"]
+            s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php/7.0/fpm/php-fpm.conf"
+          else
+            s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php5/fpm/php-fpm.conf"
+          end
           s.args = [var["key"], var["value"]]
         end
 
@@ -280,7 +288,11 @@ class Homestead
       end
 
       config.vm.provision "shell" do |s|
-        s.inline = "service php7.0-fpm restart"
+        if settings.has_key?("php7") && settings["php7"]
+          s.inline = "service php7.0-fpm restart"
+        else
+          s.inline = "service php5-fpm restart"
+        end
       end
     end
 
