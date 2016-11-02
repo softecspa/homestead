@@ -7,8 +7,12 @@ then
     exit 0
 fi
 
-touch /home/vagrant/.vagrant-ubuntu
+#touch /home/vagrant/.vagrant-ubuntu
 
-sudo apt-get install build-essential chrpath libssl-dev libxft-dev
-sudo apt-get install libfreetype6 libfreetype6-dev
-sudo apt-get install libfontconfig1 libfontconfig1-dev
+sudo apt-get install -y build-essential chrpath libssl-dev libxft-dev
+sudo apt-get install -y libfreetype6 libfreetype6-dev
+sudo apt-get install -y libfontconfig1 libfontconfig1-dev
+sudo apt-get install -y nginx
+sudo apt-get install -y php5-fpm
+sudo apt-get install -y nodejs 
+sudo apt-get install -y npm

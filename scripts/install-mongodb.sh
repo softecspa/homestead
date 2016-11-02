@@ -33,30 +33,30 @@ sudo apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-de
 sudo apt-get install -y libcurl4-openssl-dev pkg-config;
 sudo apt-get install -y libsasl2-dev;
 
-echo "Installing PHP7 mongoDb extension";
-sudo pecl install mongodb;
+#echo "Installing PHP7 mongoDb extension";
+#sudo pecl install mongodb;
 
-echo "adding the extension to your php.ini file";
-sudo echo  "extension = mongodb.so" >> /etc/php/7.0/cli/php.ini;
-sudo echo  "extension = mongodb.so" >> /etc/php/7.0/fpm/php.ini;
+#echo "adding the extension to your php.ini file";
+#sudo echo  "extension = mongodb.so" >> /etc/php/7.0/cli/php.ini;
+#sudo echo  "extension = mongodb.so" >> /etc/php/7.0/fpm/php.ini;
 
-echo "Add mongodb.service file"
-cat >/etc/systemd/system/mongodb.service <<EOL
-[Unit]
-Description=High-performance, schema-free document-oriented database
-After=network.target
-
-[Service]
-User=mongodb
-ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
-
-[Install]
-WantedBy=multi-user.target
-EOL
-
+#echo "Add mongodb.service file"
+#cat >/etc/systemd/system/mongodb.service <<EOL
+#[Unit]
+#Description=High-performance, schema-free document-oriented database
+#After=network.target
+#
+#[Service]
+#User=mongodb
+#ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
+#
+#[Install]
+#WantedBy=multi-user.target
+#EOL
+#
 sudo systemctl start mongodb
 sudo systemctl status mongodb
 sudo systemctl enable mongodb
 
-echo "restarting The nginx server";
-sudo service nginx restart && sudo service php7.0-fpm restart
+#echo "restarting The nginx server";
+#sudo service nginx restart && sudo service php7.0-fpm restart

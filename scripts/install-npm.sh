@@ -7,11 +7,11 @@ then
     exit 0
 fi
 
-touch /home/vagrant/.vagrant-npm
+#touch /home/vagrant/.vagrant-npm
 
-sudo npm install -g node-gyp
-sudo npm install -g sails@~0.11.0 # fixed the version for dm-s2sc
+#sudo npm install -g node-gyp
+sudo npm install -g sails@~0.10.5 # fixed the version for dm-s2sc
 sudo npm install -g phantom
 sudo npm install -g phantomjs
 sudo npm install -g forever
-sudo npm install -g nodemon
+#sudo npm install -g nodemon
