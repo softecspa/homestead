@@ -197,9 +197,9 @@ class Homestead
     config.vm.provision "shell" do |s|
       s.name = "Restarting Nginx"
       if settings.has_key?("php7") && settings["php7"]
-        s.inline = "sudo service nginx restart; sudo service php5-fpm restart"
-      else 
         s.inline = "sudo service nginx restart; sudo service php7.0-fpm restart"
+      else 
+        s.inline = "sudo service nginx restart; sudo service php5-fpm restart"
       end
     end
 
