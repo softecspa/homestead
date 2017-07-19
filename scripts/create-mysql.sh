@@ -2,7 +2,7 @@
 
 cat > ~/.my.cnf << EOF
 [client]
-user = homestead
+user = root
 password = secret
 host = localhost
 EOF

@@ -1,0 +1,25 @@
+---
+ip: "192.168.10.14"
+memory: 2048
+cpus: 2
+provider: virtualbox
+name: trusty64
+box: "ubuntu/trusty64"
+hostname: trusty64
+mongodb: true
+#yarn: true
+npm: true
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: /var/www/app
+      to: /home/vagrant/Code
+
+sites:
+    - map: meteoalerts.local
+      to: /home/vagrant/Code/meteo_alerts_pcl/public/
+      type: nodejs

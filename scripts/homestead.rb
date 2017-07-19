@@ -197,18 +197,18 @@ class Homestead
     config.vm.provision "shell" do |s|
       s.name = "Restarting Nginx"
       if settings.has_key?("php7") && settings["php7"]
-        s.inline = "sudo service nginx restart; sudo service php5-fpm restart"
-      else 
         s.inline = "sudo service nginx restart; sudo service php7.0-fpm restart"
+      else 
+        s.inline = "sudo service nginx restart; sudo service php5-fpm restart"
       end
     end
 
     # Install MariaDB If Necessary
-    if settings.has_key?("mariadb") && settings["mariadb"]
-      config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/install-maria.sh"
-      end
-    end
+    #if settings.has_key?("mariadb") && settings["mariadb"]
+      #config.vm.provision "shell" do |s|
+        #s.path = scriptDir + "/install-maria.sh"
+      #end
+    #end
     
     # Install ImageMagick If Necessary
     if settings.has_key?("imagemagick") && settings["imagemagick"]
@@ -218,25 +218,25 @@ class Homestead
     end
 
     # Install YARN If Necessary
-    if settings.has_key?("yarn") && settings["yarn"]
-      config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/install-yarn.sh"
-      end
-    end
+    #if settings.has_key?("yarn") && settings["yarn"]
+      #config.vm.provision "shell" do |s|
+        #s.path = scriptDir + "/install-yarn.sh"
+      #end
+    #end
 
     # Install NPM If Necessary
-    if settings.has_key?("npm") && settings["npm"]
-      config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/install-npm.sh"
-      end
-    end
+    #if settings.has_key?("npm") && settings["npm"]
+      #config.vm.provision "shell" do |s|
+        #s.path = scriptDir + "/install-npm.sh"
+      #end
+    #end
 
     # Install Mongodb If Necessary
-    if settings.has_key?("mongodb") && settings["mongodb"]
-      config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/install-mongodb.sh"
-      end
-    end
+    #if settings.has_key?("mongodb") && settings["mongodb"]
+      #config.vm.provision "shell" do |s|
+        #s.path = scriptDir + "/install-mongodb.sh"
+      #end
+    #end
 
     # Configure All Of The Configured Databases
     if settings.include? 'databases'
@@ -254,11 +254,11 @@ class Homestead
 
           else 
 
-            config.vm.provision "shell" do |s|
-              s.name = "Creating Postgres Database"
-              s.path = scriptDir + "/create-postgres.sh"
-              s.args = [db["name"]]
-            end
+            #config.vm.provision "shell" do |s|
+              #s.name = "Creating Postgres Database"
+              #s.path = scriptDir + "/create-postgres.sh"
+              #s.args = [db["name"]]
+            #end
 
           end
         end
@@ -297,22 +297,22 @@ class Homestead
     end
 
     # Update Composer On Every Provision
-    config.vm.provision "shell" do |s|
-      s.inline = "/usr/local/bin/composer self-update"
-    end
+    #config.vm.provision "shell" do |s|
+      #s.inline = "/usr/local/bin/composer self-update"
+    #end
 
     # Configure Blackfire.io
-    if settings.has_key?("blackfire")
-      config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/blackfire.sh"
-        s.args = [
-          settings["blackfire"][0]["id"],
-          settings["blackfire"][0]["token"],
-          settings["blackfire"][0]["client-id"],
-          settings["blackfire"][0]["client-token"]
-        ]
-      end
-    end
+    #if settings.has_key?("blackfire")
+      #config.vm.provision "shell" do |s|
+        #s.path = scriptDir + "/blackfire.sh"
+        #s.args = [
+          #settings["blackfire"][0]["id"],
+          #settings["blackfire"][0]["token"],
+          #settings["blackfire"][0]["client-id"],
+          #settings["blackfire"][0]["client-token"]
+        #]
+      #end
+    #end
 
     config.trigger.before :halt do
       info "Dumping the database before destroying the VM..."

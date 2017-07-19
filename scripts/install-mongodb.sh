@@ -9,7 +9,7 @@ fi
 
 touch /home/vagrant/.vagrant-mongodb
 
-echo "MongoDB install  script with PHP7 & nginx [Laravel Homestead]"
+echo "MongoDB install [Laravel Homestead]"
 echo "By Zakaria BenBakkar, @zakhttp, zakhttp@gmail.com"
 echo "@see https://github.com/zakhttp/Mongostead7"
 
@@ -54,9 +54,9 @@ sudo apt-get install -y libsasl2-dev;
 #WantedBy=multi-user.target
 #EOL
 #
-sudo systemctl start mongodb
-sudo systemctl status mongodb
-sudo systemctl enable mongodb
+#sudo systemctl start mongodb
+#sudo systemctl status mongodb
+#sudo systemctl enable mongodb
 
 #echo "restarting The nginx server";
 #sudo service nginx restart && sudo service php7.0-fpm restart
